@@ -1,0 +1,131 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: whitesmoke;
+    font-family: monospace;
+
+}
+
+h1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    background-color: #1c63f3;
+    color: #f7a800;
+    height: 50%;
+    border-radius: 4px;
+    margin: 2rem;
+
+}
+
+.gameField {
+    width: 95%;
+    aspect-ratio: 1;
+    margin-inline: auto;
+}
+
+.mainGrid {
+    /* border: 3px black dotted; */
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(7, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    column-gap: 0%;
+    row-gap: 0%;
+}
+
+.case {
+    /* border: red 1px solid; */
+    aspect-ratio: 1;
+    background-color: #1c63f3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+}
+
+.enterGame {
+    background-color: whitesmoke;
+}
+
+.circle {
+    height: 80%;
+    aspect-ratio: 1;
+    background-color: #f7f7f7;
+    border-radius: 50%;
+    margin: auto;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0;
+}
+
+.circleYellow {
+    background-color: #f7a800;
+}
+
+.circleRed {
+    background-color: #f60001;
+}
+
+.okToPlay {
+    border: solid black;
+    border-width: 0 3px 3px 0;
+    display: flex;
+    padding: 3px;
+    -webkit-transform: rotate(45deg);
+    animation: faddingFunction 3s linear infinite;
+    transform: rotate(90deg);
+    font-size: 100%;
+    font-weight: bolder;
+
+}
+
+.circleOKYellow {
+    background-color: #f7a800;
+    color: blue;
+}
+
+.circleOKRed {
+    background-color: #f60001;
+    color: blue;
+}
+
+@media screen and (min-width:800px) {
+    .okToPlay {
+        font-size: 3rem;
+    }
+
+}
+
+@keyframes faddingFunction {
+    50% {
+        opacity: 0;
+    }
+}
+
+.boardBelowGameField {
+    height: 70px;
+    width: 95%;
+    background-color: whitesmoke;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#submitBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    background-color: #1c63f3;
+    color: #f7a800;
+    height: 70%;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    margin: 2rem;
+}
