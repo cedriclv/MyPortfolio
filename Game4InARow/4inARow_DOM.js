@@ -59,16 +59,59 @@ function feedTheGrid(gridInput, gridDomOutput) {
     }
 }
 
-// function to re-start and clean up  the grids 
+// function to re-start and clean up  the grids in 1 player mode 
+// and add a button start (button start/restart)
+// 1. analyze empty spaces 2. choose a random column amongst the free ones 3. play like in 2 players
+
+const buttonStartOne = document.getElementById("onePlayerButton");
+
+buttonStartOne.addEventListener("click", restartOnePlayer);
+
+function restartOnePlayer() {
+    onePlayerActivated = true;
+    machineToPlay = true;
+    colorInGame = 'Y';
+    console.log('passe par la fonction restartOnePlayer');
+    cleanGrid(gameGrid);
+    // change a partir d'ici
+    setTimeout(putRandomPawnToGrid, 1000);
+    feedTheGrid(gameGrid, gameStage);
+    greenRedFlagColumn(gameGrid, lineAboveStage, 'R');
+}
+
+
+//
+function getRandomInt() {
+    return randomNb = Math.floor(Math.random() * 6);
+}
+// function to place randomly a pawn
+function putRandomPawnToGrid() {
+    //Nombre aleatoire entre 0 et 6 excluant les colonnes pleines RESTE A EXCLURE COL PLEINES
+    addPawn(colorInGame, columnToFocusForMachine);
+    feedTheGrid(gameGrid, gameStage);
+    if (checkAllWinner() === false) {
+        console.log('PERDU');
+    } else { alert('GAGNE'); }
+    if (colorInGame === 'Y') { colorInGame = 'R'; } else { colorInGame = 'Y'; }
+    greenRedFlagColumn(gameGrid, lineAboveStage, colorInGame);
+    machineToPlay = !machineToPlay;
+    // this round is finished so we can reset the focus made by the machine during the 3 in row checks (only colonne for now)
+    resetColumnToFocusForMachine();
+}
+
+
+
+
+// function to re-start and clean up  the grids in 2 player mode 
 // and add a button start (button start/restart)
 
-const buttonStart = document.getElementById("submitBtn");
+const buttonStartTwo = document.getElementById("twoPlayerButton");
 
-buttonStart.addEventListener("click", restart);
+buttonStartTwo.addEventListener("click", restartTwoPlayer);
 
 
-function restart() {
-    //    console.log("ok fonction restart");
+function restartTwoPlayer() {
+    onePlayerActivated = false;
     colorInGame = 'Y';
     cleanGrid(gameGrid);
     feedTheGrid(gameGrid, gameStage);
@@ -95,15 +138,22 @@ function playAPawn() {
 }
 
 function addEventToLineAboveStage(event) {
-    if (event.target.classList.contains('okToPlay')) {
-        addPawn(colorInGame, parseInt(event.target.id));
-        feedTheGrid(gameGrid, gameStage);
+    if (onePlayerActivated === false || (onePlayerActivated === true && machineToPlay === false)) {
+        if (event.target.classList.contains('okToPlay')) {
+            addPawn(colorInGame, parseInt(event.target.id));
+            feedTheGrid(gameGrid, gameStage);
+            machineToPlay = !machineToPlay;
+        }
+
+        if (checkAllWinner() === false) {
+            console.log('PERDU');
+        } else { alert('GAGNE'); }
+        if (colorInGame === 'Y') { colorInGame = 'R'; } else { colorInGame = 'Y'; }
+        greenRedFlagColumn(gameGrid, lineAboveStage, colorInGame);
     }
-    if (checkAllWinner() === false) {
-        console.log('PERDU');
-    } else { alert('GAGNE'); }
-    if (colorInGame === 'Y') { colorInGame = 'R'; } else { colorInGame = 'Y'; }
-    greenRedFlagColumn(gameGrid, lineAboveStage, colorInGame);
+    if (onePlayerActivated === true && machineToPlay === true) {
+        setTimeout(putRandomPawnToGrid, 1000);
+    }
 }
 
 playAPawn();

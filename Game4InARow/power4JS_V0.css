@@ -122,15 +122,16 @@ h1 {
     align-items: center;
 }
 
-#submitBtn {
+button {
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 1rem;
     background-color: #1c63f3;
     color: #f7a800;
-    height: 70%;
-    border-radius: 50%;
-    font-size: 1.2rem;
+    height: 85%;
+    border-radius: 4px;
+    font-size: 1rem;
     margin: 2rem;
+    /* box-shadow: 3px black; */
 }

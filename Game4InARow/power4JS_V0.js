@@ -1,3 +1,10 @@
+let onePlayerActivated = false;
+let machineToPlay = false;
+let columnToFocusForMachine = Math.floor(Math.random() * 6);
+// function to rest the columnToFocusForMachine
+function resetColumnToFocusForMachine() {
+    columnToFocusForMachine = Math.floor(Math.random() * 6);
+}
 // create the initial tab with postion (can be E (like Empty), or R (Red) or Y (Yellow))
 let gameGrid = [
     ['E', 'E', 'E', 'E', 'E', 'E', 'E'],
@@ -56,6 +63,7 @@ function checkRowsWinner() {
 //////////////////////////////////////////////////////////////////////////
 // function to create to check if a column contains 'YYYY' or 'RRRR'
 function checkColumnsWinner() {
+    console.log("passe par checkColumnsWinner");
     let winnerFound = false;
     let winnerColor = 'Y';
     for (let column = 0; column < gameGrid.length; column++) {
@@ -63,7 +71,14 @@ function checkColumnsWinner() {
         for (let row = 1; row < (gameGrid[0].length - 1); row++) {
             if ((gameGrid[row][column] === gameGrid[row - 1][column]) && (gameGrid[row][column] !== 'E')) {
                 rollingPawnFound++;
-                // once the latest empty space is found, the pawn is place inside 
+                console.log(`rollingPawnFound vaut ${rollingPawnFound}`);
+                console.log("passe par la premiere condition");
+                //add a check to see if a 3 in a row series is done, thus the machine will focus on this colum to play 
+                if (rollingPawnFound === 3 && machineToPlay === true) {
+                    columnToFocusForMachine = column;
+                    console.log('focus de la machine sur la colonne ', columnToFocusForMachine);
+                }
+                //
                 if (rollingPawnFound === 4) {
                     winnerFound = true;
                     winnerColor = gameGrid[row][column];
